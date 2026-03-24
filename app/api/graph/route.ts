@@ -142,9 +142,12 @@ export async function GET() {
 
     return NextResponse.json({ nodes, links });
   } catch (error) {
+    const message = error instanceof Error ? error.message : "Failed to build graph payload.";
+    // Log the error for Netlify function logs without leaking secrets.
+    console.error("api/graph error:", message);
     return NextResponse.json(
       {
-        error: error instanceof Error ? error.message : "Failed to build graph payload.",
+        error: message,
       },
       { status: 500 },
     );
