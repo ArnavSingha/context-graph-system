@@ -1,0 +1,10 @@
+node_modules
+.next
+dist
+.env
+.vscode
+.DS_Store
+.idea
+*.log
+*.lock
+

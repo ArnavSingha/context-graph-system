@@ -1,0 +1,37 @@
+{
+  "name": "context-graph-system",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "import:o2c": "tsx scripts/import-o2c.ts",
+    "query:o2c": "tsx scripts/query-o2c.ts"
+  },
+  "dependencies": {
+    "@ai-sdk/openai": "^3.0.48",
+    "@ai-sdk/react": "^3.0.139",
+    "ai": "^6.0.137",
+    "autoprefixer": "^10.4.27",
+    "csv-parser": "^3.2.0",
+    "dotenv": "^16.4.7",
+    "next": "^16.2.1",
+    "pg": "^8.13.3",
+    "postcss": "^8.5.8",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4",
+    "react-force-graph-2d": "^1.29.1",
+    "tailwindcss": "^4.2.2",
+    "zod": "^4.3.6"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4.2.2",
+    "@types/node": "^22.13.14",
+    "@types/pg": "^8.20.0",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "tsx": "^4.19.3",
+    "typescript": "^5.8.2"
+  }
+}

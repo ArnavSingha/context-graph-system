@@ -1,0 +1,11 @@
+{
+  "messages": [
+    {
+      "id": "test-user-2",
+      "role": "user",
+      "parts": [
+        { "type": "text", "text": "Which customer is linked to sales order 740506?" }
+      ]
+    }
+  ]
+}
