@@ -6,10 +6,16 @@ declare global {
 }
 
 export function getPool() {
-  const connectionString = process.env.DATABASE_URL;
+  const connectionString = process.env.DATABASE_URL?.trim();
 
   if (!connectionString) {
     throw new Error("DATABASE_URL is required.");
+  }
+
+  if (connectionString.includes("\n") || connectionString.includes("OPENROUTER_") || connectionString.includes("DATABASE_URL=")) {
+    throw new Error(
+      "DATABASE_URL is malformed. In Netlify, each environment variable must be entered in its own field.",
+    );
   }
 
   if (!global.__contextGraphPool__) {

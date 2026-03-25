@@ -47,11 +47,12 @@ export function GraphView({ highlightedNodes }: GraphViewProps) {
     async function loadGraph() {
       try {
         const response = await fetch("/api/graph");
-        if (!response.ok) {
-          throw new Error("Failed to fetch graph data.");
+        const payload = (await response.json()) as GraphData | { error: string };
+        if (!response.ok || "error" in payload) {
+          throw new Error("error" in payload ? payload.error : "Failed to fetch graph data.");
         }
 
-        const data = (await response.json()) as GraphData;
+        const data = payload as GraphData;
         if (!ignore) {
           setGraphData(data);
         }
