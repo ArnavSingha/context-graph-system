@@ -1,4 +1,4 @@
-import { Pool, type QueryResultRow } from "pg";
+import { Pool, type PoolConfig, type QueryResultRow } from "pg";
 
 declare global {
   // eslint-disable-next-line no-var
@@ -13,7 +13,21 @@ export function getPool() {
   }
 
   if (!global.__contextGraphPool__) {
-    global.__contextGraphPool__ = new Pool({ connectionString });
+    const isLocalConnection =
+      connectionString.includes("localhost") || connectionString.includes("127.0.0.1");
+    const shouldUseSsl = process.env.PGSSLMODE === "require" || (!isLocalConnection && !connectionString.includes("sslmode="));
+
+    const poolConfig: PoolConfig = {
+      connectionString,
+    };
+
+    if (shouldUseSsl) {
+      poolConfig.ssl = {
+        rejectUnauthorized: false,
+      };
+    }
+
+    global.__contextGraphPool__ = new Pool(poolConfig);
   }
 
   return global.__contextGraphPool__;

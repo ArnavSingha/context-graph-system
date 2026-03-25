@@ -1,9 +1,5 @@
 import { NextResponse } from "next/server";
-import { Pool } from "pg";
-
-const pool = new Pool({
-  connectionString: process.env.DATABASE_URL,
-});
+import { getPool } from "@/lib/db";
 
 type GraphRow = {
   sales_order_id: string;
@@ -30,7 +26,7 @@ export async function GET() {
   let client;
 
   try {
-    client = await pool.connect();
+    client = await getPool().connect();
 
     const result = await client.query<GraphRow>(`
       with recent_sales_orders as (

@@ -1,10 +1,6 @@
 import { tool } from "ai";
 import { z } from "zod";
-import { Pool } from "pg";
-
-const pool = new Pool({
-  connectionString: process.env.DATABASE_URL,
-});
+import { getPool } from "@/lib/db";
 
 const DANGEROUS_SQL_PATTERN = /\b(drop|delete|update|insert|alter|truncate)\b/i;
 
@@ -21,7 +17,7 @@ export const queryDatabaseTool = tool({
     let client;
 
     try {
-      client = await pool.connect();
+      client = await getPool().connect();
       const result = await client.query(query);
       return result.rows;
     } catch (error) {
